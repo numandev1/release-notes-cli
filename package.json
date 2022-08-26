@@ -1,0 +1,89 @@
+{
+  "author": "Numan <muhammadnuman70@gmail.com>",
+  "name": "release-notes-cli",
+  "version": "0.0.1",
+  "description": "Generate release notes from git for playstore/appstore or for github",
+  "typings": "./index.d.ts",
+  "keywords": [
+    "git",
+    "log",
+    "release notes",
+    "compare",
+    "version",
+    "playstore",
+    "appstore"
+  ],
+  "scripts": {
+    "build": "yarn clean && tsc",
+    "changelog": "node ./bin/cli.js",
+    "clean": "rimraf lib",
+    "fix": "yarn lint -- --fix",
+    "lint": "eslint src --ext ts --format stylish",
+    "prepack": "yarn build",
+    "prettier": "prettier --write 'src/**/*.ts'",
+    "release": "release-it",
+    "test": "jest",
+    "test-ci": "yarn build && yarn test",
+    "watch": "yarn build -- --watch",
+    "posttest": "npm run lint",
+    "test-html": "node cli.js -- 32a369f..f6cf9af ./templates/html.ejs > ./samples/output-html.html",
+    "test-html-bootstrap": "node cli.js -- 32a369f..0419636 ./templates/html-bootstrap.ejs > ./samples/output-html-bootstrap.html",
+    "test-markdown": "node cli.js -- 32a369f..f6cf9af ./templates/markdown.ejs > ./samples/output-markdown.md",
+    "test-script": "node cli.js -s ./samples/post-processing.js 32a369f..0419636 ./templates/markdown.ejs",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "date-fns": "^2.29.2",
+    "debug": "^4.3.4",
+    "ejs": "^3.1.8",
+    "yargs": "^17.1.0"
+  },
+  "devDependencies": {
+    "@types/jest": "28.1.8",
+    "@types/node": "16.11.56",
+    "@typescript-eslint/eslint-plugin": "5.35.1",
+    "@typescript-eslint/parser": "5.35.1",
+    "eslint": "8.22.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-prettier": "4.2.1",
+    "fs-extra": "10.1.0",
+    "jest": "28.1.3",
+    "jest-runner-eslint": "1.0.1",
+    "prettier": "2.7.1",
+    "release-it": "15.4.0",
+    "rimraf": "3.0.2",
+    "ts-jest": "28.0.8",
+    "typescript": "4.7.4"
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "printWidth": 120,
+    "tabWidth": 2,
+    "singleQuote": false,
+    "trailingComma": "es5"
+  },
+  "contributors": [
+    {
+      "name": "Numan",
+      "email": "muhammadnuman70@gmail.com",
+      "url": "https://github.com/nomi9995"
+    }
+  ],
+  "bin": "./cli.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nomi9995/release-notes-cli"
+  },
+  "engines": {
+    "node": ">=10"
+  },
+  "homepage": "https://github.com/nomi9995/release-notes-cli",
+  "license": "MIT",
+  "preferGlobal": true,
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/*.test.js"
+    ]
+  }
+}
