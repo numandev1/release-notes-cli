@@ -1,1 +1,13 @@
 node_modules
+**/__mocks__/**
+**/__snapshots__/**
+*.spec.js
+*.tgz
+.changelog/
+.editorconfig
+.eslintrc.js
+.github/
+.idea/
+src
+tsconfig.json
+pnpm-lock.yaml

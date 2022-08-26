@@ -1,6 +1,18 @@
+### Would you like to support me?
+
+<div align="center">
+<a href="https://github.com/nomi9995?tab=followers">
+    <img src="https://img.shields.io/github/followers/nomi9995?label=Follow%20%40nomi9995&style=social" />
+</a>
+</br>
+<a href="https://www.buymeacoffee.com/numan.dev" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
+</div>
+
 ## Release Notes
 
-Generate release note pages from git commit history.
+Generate release notes from git commit history either **commit range** or **tag range**.
+
+![](media/appstore.png)
 
 ### Installation
 
@@ -12,21 +24,28 @@ It's also possible to use `release-notes-cli` as a node module. Check the usage 
 
 ### Usage
 
+you can call this cli by **release-notes-cli** / **release-notes** / **rn**
 The basic usage from the command line is
 
-    cd <your_git_project>
-    release-notes-cli <since>..<until> <template>
+```
+release-notes <since>..<until> <template> --copy
+
+# like this
+release-notes v1.4.0..v1.5.2 appstore --copy
+```
 
 Where
 
-* `<since>..<until>` specifies the range of commits as in `git log`, see [gitrevisions(7)](http://www.kernel.org/pub/software/scm/git/docs/gitrevisions.html)
-* `<template>` is an [ejs](https://github.com/visionmedia/ejs) template file used to generate the release notes
+- `<since>..<until>` specifies the range of commits as in `git log`, see [gitrevisions(7)](http://www.kernel.org/pub/software/scm/git/docs/gitrevisions.html)
+- `<template>` is an [ejs](https://github.com/visionmedia/ejs) template file used to generate the release notes
+- `--copy` will copy the log into clipboard
 
 Three sample templates are included as a reference in the `templates` folder
 
- * `markdown` [(sample)](https://github.com/nomi9995/release-notes-cli/blob/master/samples/output-markdown.md)
- * `html` [(sample)](http://htmlpreview.github.io/?https://github.com/nomi9995/release-notes-cli/blob/master/samples/output-html.html)
- * `html-bootstrap` [(sample)](http://htmlpreview.github.io/?https://github.com/nomi9995/release-notes-cli/blob/master/samples/output-html-bootstrap.html)
+- `appstore` [(sample)](https://github.com/nomi9995/release-notes-cli/blob/master/samples/output-appstore.txt)
+- `markdown` [(sample)](https://github.com/nomi9995/release-notes-cli/blob/master/samples/output-markdown.md)
+- `html` [(sample)](http://htmlpreview.github.io/?https://github.com/nomi9995/release-notes-cli/blob/master/samples/output-html.html)
+- `html-bootstrap` [(sample)](http://htmlpreview.github.io/?https://github.com/nomi9995/release-notes-cli/blob/master/samples/output-html-bootstrap.html)
 
 This for example is the release notes generated for `joyent/node` by running
 
@@ -34,6 +53,21 @@ This for example is the release notes generated for `joyent/node` by running
 
 [<img src="https://github.com/nomi9995/release-notes-cli/raw/master/samples/node_thumb.png" alt="Node's release notes">](https://github.com/nomi9995/release-notes-cli/raw/master/samples/node.png)
 
+#### App Store Template
+
+**Note:** for appstore release notes, commits title should be have [Commitlint header](https://github.com/conventional-changelog/commitlint#what-is-commitlint) format like
+
+```
+chore: run tests on travis ci
+```
+
+```
+fix(server): send cors headers
+```
+
+```
+feat(blog): add comment section
+```
 
 #### Custom template
 
@@ -45,16 +79,16 @@ Several template variables are made available to the script running inside the t
 
 `commits` is an array of commits, each containing
 
-* `sha1` commit hash (%H)
-* `authorName` author name (%an)
-* `authorEmail` author email (%ae)
-* `authorDate` author date (%aD)
-* `committerName` committer name (%cn)
-* `committerEmail` committer email (%ce)
-* `committerDate` committer date (%cD)
-* `title` subject (%s)
-* `tag` tag (%D)
-* `messageLines` array of body lines (%b)
+- `sha1` commit hash (%H)
+- `authorName` author name (%an)
+- `authorEmail` author email (%ae)
+- `authorDate` author date (%aD)
+- `committerName` committer name (%cn)
+- `committerEmail` committer email (%ce)
+- `committerDate` committer date (%cD)
+- `title` subject (%s)
+- `tag` tag (%D)
+- `messageLines` array of body lines (%b)
 
 `dateFnsFormat` is the date-fns [format](https://date-fns.org/docs/format) function. See the [html-bootstrap](https://github.com/nomi9995/release-notes-cli/blob/master/templates/html-bootstrap.ejs) for sample usage.
 
@@ -64,15 +98,16 @@ Several template variables are made available to the script running inside the t
 
 More advanced options are
 
-* `p` or `path` Git project path, defaults to the current working path
-* `b` or `branch` Git branch, defaults to `master`
-* `t` or `title` Regular expression to parse the commit title (see next chapter)
-* `i` or `ignore-case` Ignore case flag for title's regular expression. `/.*/` becomes `/.*/i`
-* `m` or `meaning` Meaning of capturing block in title's regular expression
-* `f` or `file` JSON Configuration file, better option when you don't want to pass all parameters to the command line, for an example see [options.json](https://github.com/nomi9995/release-notes-cli/blob/master/options.json)
-* `s` or `script` External script for post-processing commits
-* `c` or `merge-commits` List only merge commits, `git log` command is executed with the `--merges` flag instead of `--no-merges`
-* `o` or `gitlog-option` to add some additional git log options **and** ignores the `merge-commits` option, this is direct given to `git log` by adding a `--` to each longname option from the array (e.g. `-o first-parent`).
+- `p` or `path` Git project path, defaults to the current working path
+- `b` or `branch` Git branch, defaults to `master`
+- `t` or `title` Regular expression to parse the commit title (see next chapter)
+- `i` or `ignore-case` Ignore case flag for title's regular expression. `/.*/` becomes `/.*/i`
+- `m` or `meaning` Meaning of capturing block in title's regular expression
+- `f` or `file` JSON Configuration file, better option when you don't want to pass all parameters to the command line, for an example see [options.json](https://github.com/nomi9995/release-notes-cli/blob/master/options.json)
+- `s` or `script` External script for post-processing commits
+- `mg` or `merge-commits` List only merge commits, `git log` command is executed with the `--merges` flag instead of `--no-merges`
+- `c` or `copy` uses for copy the log
+- `o` or `gitlog-option` to add some additional git log options **and** ignores the `merge-commits` option, this is direct given to `git log` by adding a `--` to each longname option from the array (e.g. `-o first-parent`).
 
 #### Title Parsing
 
@@ -93,10 +128,9 @@ release-notes-cli -t "^([a-z]+) #(\d+) (.*)$" -m type -m issue -m title v1.3.6..
 
 generates the additional fields on the commit object
 
-* `type` first capturing block
-* `issue` second capturing block
-* `title` third capturing block (redefines the title)
-
+- `type` first capturing block
+- `issue` second capturing block
+- `title` third capturing block (redefines the title)
 
 Another project using similar conventions is [AngularJs](https://github.com/angular/angular.js), [commit message conventions](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#).
 
@@ -111,7 +145,7 @@ The advanced options cover the most basic use cases, however sometimes you might
 Using `-s script_file.js` you can invoke any arbitrary node script with the following signature:
 
 ```js
-module.exports = function(data, callback) {
+module.exports = function (data, callback) {
   /**
    * Here `data` contains exactly the same values your template will normally receive. e.g.
    *
@@ -126,7 +160,7 @@ module.exports = function(data, callback) {
    */
   callback({
     commits: data.commits.map(doSomething),
-    extra: { additional: 'data' },
+    extra: { additional: "data" },
   });
   //
 };
@@ -136,34 +170,33 @@ The object passed to the callback will be merged with the input data and passed 
 
 For an example check `samples/post-processing.js`
 
-
 ### Usage as a module
 
 #### Installation
 
-   npm install --save-dev release-notes-cli
+npm install --save-dev release-notes-cli
 
 #### Usage
 
 Inside your script file
 
 ```js
-const releaseNotes = require('release-notes-cli');
+const releaseNotes = require("release-notes-cli");
 
 const OPTIONS = {
-  branch: 'master',
+  branch: "master",
 };
-const RANGE = 'v1.0.0..v2.0.0';
-const TEMPLATE = 'markdown';
+const RANGE = "v1.0.0..v2.0.0";
+const TEMPLATE = "markdown";
 
 releaseNotes(OPTIONS, RANGE, TEMPLATE)
-.then((changelog) => {
-  console.log(`Changelog between ${RANGE}\n\n${changelog}`);
-})
-.catch((ex) => {
-  console.error(ex);
-  process.exit(1);
-});
+  .then(changelog => {
+    console.log(`Changelog between ${RANGE}\n\n${changelog}`);
+  })
+  .catch(ex => {
+    console.error(ex);
+    process.exit(1);
+  });
 ```
 
 #### Options
@@ -173,14 +206,18 @@ The syntax reflects the command line parameters, so options is an object contain
 However, there is a little difference between module usage and CLI of the `script` parameter. When used as CLI, it receives a path link to a JS module file, but used as a module, it receives a function:
 
 ```js
-releaseNotes({
-  branch: 'master',
-  script: (data, callback) => {
-    callback({
-      foo: 'bar'
-    })
-  }
-}, RANGE, TEMPLATE)
+releaseNotes(
+  {
+    branch: "master",
+    script: (data, callback) => {
+      callback({
+        foo: "bar",
+      });
+    },
+  },
+  RANGE,
+  TEMPLATE
+);
 ```
 
 ### Typescript
@@ -192,13 +229,14 @@ import * as releaseNotes from "release-notes-cli";
 releaseNotes({ path }, range, TEMPLATE);
 ```
 
-
 ### Debug
+
 If your post processing script or template throws an exception, the JSON data will be written to the file system in the same folder as the processing script.
 
 The DEBUG environment variable can also be useful for fault diagnosis:
 
 #### Linux
+
     export DEBUG=release-notes:*
     release-notes-cli ...
 
