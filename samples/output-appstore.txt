@@ -1,0 +1,5 @@
+Features
+ Add payment method
+
+Fixes
+	fix crash
