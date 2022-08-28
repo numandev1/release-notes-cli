@@ -1,6 +1,9 @@
 //@ts-ignore
 let debug = require("debug")("release-notes:git");
 let parser = require("debug")("release-notes:parser");
+const gitconfig = require("gitconfiglocal");
+const { promisify } = require("util");
+const pGitconfig = promisify(gitconfig);
 
 exports.log = function (options: any) {
   return new Promise(function (resolve, reject) {
@@ -155,4 +158,11 @@ function parseTag(line: string) {
 
 function normalizeNewlines(message: string) {
   return message.replace(/\r\n?|[\n\u2028\u2029]/g, "\n").replace(/^\uFEFF/, "");
+}
+
+export async function gitRemoteOriginUrl({ cwd = process.cwd(), remoteName = "origin" } = {}) {
+  const config = await pGitconfig(cwd);
+  const url: string = (config.remote && config.remote[remoteName] && config.remote[remoteName].url) || "";
+
+  return url.replace(/\.git$/, "");
 }

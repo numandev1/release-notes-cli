@@ -7,6 +7,7 @@ let dateFnsFormat = require("date-fns/format");
 import type { OPTIONS, ICommit } from "./types";
 import * as clipboard from "clipboardy";
 import chalk = require("chalk");
+const githubUsername = require("./utils/github-username");
 
 export default (cliOptions: OPTIONS, positionalRange: string, positionalTemplate: string = "appstore") => {
   return fileSystem.resolveTemplate(positionalTemplate).then((template: string) => {
@@ -33,7 +34,7 @@ export default (cliOptions: OPTIONS, positionalRange: string, positionalTemplate
   });
 };
 
-const render = (
+const render = async (
   range: string,
   templateContent: string,
   data: any,
@@ -42,15 +43,44 @@ const render = (
 ) => {
   debug("Rendering template");
   let renderedContent = "";
-  if (type === "appstore") {
+  if (type === "appstore" || type === "changelog") {
+    let gitRemote = "";
+    let isError = false;
     const allCommits: { [key: string]: ICommit } = commitFormateForAppstore(data.commits);
-    for (let [key, value] of Object.entries(allCommits)) {
-      renderedContent += ejs.render(templateContent, { title: key, commits: value }) + "\n";
+    if (type === "changelog") {
+      gitRemote = await git.gitRemoteOriginUrl();
+      for (let [key, value] of Object.entries(allCommits)) {
+        //@ts-ignore
+        const valueCommits: ICommit[] = value;
+        const x = valueCommits.map(async commit => {
+          try {
+            const username = await githubUsername(commit.committerEmail, { token: process.env.GITHUB_AUTH });
+            //@ts-ignore
+            commit.username = username;
+          } catch (error) {
+            isError = true;
+          }
+        });
+        await Promise.all(x);
+
+        renderedContent += ejs.render(templateContent, { title: key, gitRemote, commits: valueCommits }) + "\n";
+      }
+    } else {
+      for (let [key, value] of Object.entries(allCommits)) {
+        renderedContent += ejs.render(templateContent, { title: key, commits: value }) + "\n";
+      }
     }
     console.log(chalk.magentaBright(renderedContent));
     if (copy) {
       clipboard.writeSync(renderedContent);
       console.log(chalk.green("Copied to clipboard successfully\n"));
+    }
+    if (isError) {
+      console.log(
+        chalk.red(
+          'You need to get personal access token from github for setting committer username like this:\n\nexport GITHUB_AUTH="..."'
+        )
+      );
     }
     return;
   }
@@ -94,7 +124,7 @@ const commitLintTypesMapper: string[] = [
   "Features",
   "Fixes",
   "perf",
-  "Fixes",
+  "Changed",
   "revert",
   "style",
   "test",
