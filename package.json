@@ -53,6 +53,7 @@
     "yargs": "^17.1.0"
   },
   "devDependencies": {
+    "@release-it/conventional-changelog": "^5.1.0",
     "@types/jest": "28.1.8",
     "@types/node": "^18.7.13",
     "@typescript-eslint/eslint-plugin": "5.35.1",
@@ -68,6 +69,26 @@
     "rimraf": "3.0.2",
     "ts-jest": "28.0.8",
     "typescript": "^4.8.2"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "release-it": {
+    "git": {
+      "commitMessage": "chore: release ${version}",
+      "tagName": "v${version}"
+    },
+    "npm": {
+      "publish": true
+    },
+    "github": {
+      "release": true
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": "angular"
+      }
+    }
   },
   "contributors": [
     {
