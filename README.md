@@ -12,7 +12,9 @@
 
 Generate release notes from git commit history either **commit range** or **tag range**.
 
-![](media/appstore.png)
+| ![](media/appstore.png) | ![](media/changeLog.png) |
+| :---------------------: | :----------------------: |
+|   App Store Template    |    Changelog Template    |
 
 ### Installation
 
@@ -43,6 +45,7 @@ Where
 Three sample templates are included as a reference in the `templates` folder
 
 - `appstore` [(sample)](https://github.com/nomi9995/release-notes-cli/blob/master/samples/output-appstore.txt)
+- `changelog` [(sample)](https://github.com/nomi9995/release-notes-cli/blob/master/samples/output-changelog.md)
 - `markdown` [(sample)](https://github.com/nomi9995/release-notes-cli/blob/master/samples/output-markdown.md)
 - `html` [(sample)](http://htmlpreview.github.io/?https://github.com/nomi9995/release-notes-cli/blob/master/samples/output-html.html)
 - `html-bootstrap` [(sample)](http://htmlpreview.github.io/?https://github.com/nomi9995/release-notes-cli/blob/master/samples/output-html-bootstrap.html)
@@ -68,6 +71,23 @@ fix(server): send cors headers
 ```
 feat(blog): add comment section
 ```
+
+#### Changelog Template
+
+You need to get **GitHub personal** access token from github for setting committer username like this: [@nomi9995](https://github.com/nomi9995)
+
+Since `release-notes-cli` interacts with the GitHub API you may run into rate
+limiting issues which can be resolved by supplying a "personal access token":
+
+```
+export GITHUB_AUTH="..."
+```
+
+You'll need a [personal access token](https://github.com/settings/tokens)
+for the GitHub API with the `repo` scope for private repositories or just
+`public_repo` scope for public repositories.
+
+**Note:** if you dont set `GITHUB_AUTH` then it will not print committer username for all commits, it will print email instead of github username
 
 #### Custom template
 
