@@ -1,7 +1,7 @@
 {
   "author": "Numan <muhammadnuman70@gmail.com>",
   "name": "release-notes-cli",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Generate release notes from git for playstore/appstore or github",
   "typings": "./index.d.ts",
   "bin": {
