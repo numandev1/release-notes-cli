@@ -20,7 +20,20 @@
     "compare",
     "version",
     "playstore",
-    "appstore"
+    "appstore",
+    "release",
+    "notes",
+    "release-notes",
+    "release notes",
+    "releasenotes",
+    "markdown",
+    "html-bootstrap",
+    "html",
+    "Changelog Generator",
+    "github-changelog",
+    "publish",
+    "release-note-generator",
+    "conventional-changelog"
   ],
   "scripts": {
     "build": "yarn clean && mkdir -p lib/templates && cp -R ./templates ./lib && tsc",
