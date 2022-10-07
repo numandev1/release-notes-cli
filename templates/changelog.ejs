@@ -1,4 +1,4 @@
-###<%= title -%>
+### <%= title -%>
 
 <% commits.forEach(function (commit) { -%>
 -<%= commit.title -%> ([<%= commit.sha1.slice(0,10) -%>](<%= gitRemote -%>/commit/<%= commit.sha1 -%>) by [@<%= commit.username?commit.username:commit.committerEmail-%>](https://github.com/<%= commit.username?commit.username:commit.committerEmail-%>))
