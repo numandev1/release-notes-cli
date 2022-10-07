@@ -107,14 +107,14 @@
     {
       "name": "Numan",
       "email": "muhammadnuman70@gmail.com",
-      "url": "https://github.com/nomi9995"
+      "url": "https://github.com/numandev1"
     }
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/nomi9995/release-notes-cli"
+    "url": "https://github.com/numandev1/release-notes-cli"
   },
-  "homepage": "https://github.com/nomi9995/release-notes-cli",
+  "homepage": "https://github.com/numandev1/release-notes-cli",
   "license": "MIT",
   "preferGlobal": true,
   "engines": {
