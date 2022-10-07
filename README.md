@@ -45,17 +45,17 @@ Where
 
 Three sample templates are included as a reference in the `templates` folder
 
-- `appstore` [(sample)](https://github.com/nomi9995/release-notes-cli/blob/master/samples/output-appstore.txt)
-- `changelog` [(sample)](https://github.com/nomi9995/release-notes-cli/blob/master/samples/output-changelog.md)
-- `markdown` [(sample)](https://github.com/nomi9995/release-notes-cli/blob/master/samples/output-markdown.md)
-- `html` [(sample)](http://htmlpreview.github.io/?https://github.com/nomi9995/release-notes-cli/blob/master/samples/output-html.html)
-- `html-bootstrap` [(sample)](http://htmlpreview.github.io/?https://github.com/nomi9995/release-notes-cli/blob/master/samples/output-html-bootstrap.html)
+- `appstore` [(sample)](https://github.com/numandev1/release-notes-cli/blob/master/samples/output-appstore.txt)
+- `changelog` [(sample)](https://github.com/numandev1/release-notes-cli/blob/master/samples/output-changelog.md)
+- `markdown` [(sample)](https://github.com/numandev1/release-notes-cli/blob/master/samples/output-markdown.md)
+- `html` [(sample)](http://htmlpreview.github.io/?https://github.com/numandev1/release-notes-cli/blob/master/samples/output-html.html)
+- `html-bootstrap` [(sample)](http://htmlpreview.github.io/?https://github.com/numandev1/release-notes-cli/blob/master/samples/output-html-bootstrap.html)
 
 This for example is the release notes generated for `joyent/node` by running
 
     release-notes-cli v0.9.8..v0.9.9 html > changelog.html
 
-[<img src="https://github.com/nomi9995/release-notes-cli/raw/master/samples/node_thumb.png" alt="Node's release notes">](https://github.com/nomi9995/release-notes-cli/raw/master/samples/node.png)
+[<img src="https://github.com/numandev1/release-notes-cli/raw/master/samples/node_thumb.png" alt="Node's release notes">](https://github.com/numandev1/release-notes-cli/raw/master/samples/node.png)
 
 #### App Store Template
 
@@ -75,7 +75,7 @@ feat(blog): add comment section
 
 #### Changelog Template
 
-You need to get **GitHub personal** access token from github for setting committer username like this: [@nomi9995](https://github.com/nomi9995)
+You need to get **GitHub personal** access token from github for setting committer username like this: [@numandev1](https://github.com/numandev1)
 
 Since `release-notes-cli` interacts with the GitHub API you may run into rate
 limiting issues which can be resolved by supplying a "personal access token":
@@ -111,7 +111,7 @@ Several template variables are made available to the script running inside the t
 - `tag` tag (%D)
 - `messageLines` array of body lines (%b)
 
-`dateFnsFormat` is the date-fns [format](https://date-fns.org/docs/format) function. See the [html-bootstrap](https://github.com/nomi9995/release-notes-cli/blob/master/templates/html-bootstrap.ejs) for sample usage.
+`dateFnsFormat` is the date-fns [format](https://date-fns.org/docs/format) function. See the [html-bootstrap](https://github.com/numandev1/release-notes-cli/blob/master/templates/html-bootstrap.ejs) for sample usage.
 
 `range` is the commits range as passed to the command line
 
@@ -124,7 +124,7 @@ More advanced options are
 - `t` or `title` Regular expression to parse the commit title (see next chapter)
 - `i` or `ignore-case` Ignore case flag for title's regular expression. `/.*/` becomes `/.*/i`
 - `m` or `meaning` Meaning of capturing block in title's regular expression
-- `f` or `file` JSON Configuration file, better option when you don't want to pass all parameters to the command line, for an example see [options.json](https://github.com/nomi9995/release-notes-cli/blob/master/options.json)
+- `f` or `file` JSON Configuration file, better option when you don't want to pass all parameters to the command line, for an example see [options.json](https://github.com/numandev1/release-notes-cli/blob/master/options.json)
 - `s` or `script` External script for post-processing commits
 - `mg` or `merge-commits` List only merge commits, `git log` command is executed with the `--merges` flag instead of `--no-merges`
 - `c` or `copy` uses for copy the log
@@ -136,7 +136,7 @@ Some projects might have special naming conventions for the commit title.
 
 The options `t` and `m` allow to specify this logic and extract additional information from the title.
 
-For instance, [Aria Templates](https://github.com/nomi9995/nomi9995) has the following convention
+For instance, [Aria Templates](https://github.com/numandev1/numandev1) has the following convention
 
     fix #123 Title of a bug fix commit
     feat #234 Title of a cool new feature
